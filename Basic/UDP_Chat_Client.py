@@ -4,13 +4,13 @@ import threading
 # Setting the username
 username = input("Choose your username: ")
 
-# Connecting to the server
-c = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# Connecting to the server, specifying UDP connection
+c  = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 c.connect(('127.0.0.1', 4444))
 
 def receive():
     while True:
-        try: 
+        try:
             # Receive messages from the server, if the message is "USER" send username
             message = c.recv(1024).decode('ascii')
             if message == "USER":
@@ -19,7 +19,7 @@ def receive():
                 print(message)
         except:
             # If exception close connection
-            print("Error, Connection closed.")
+            print("Error, connection closed.")
             c.close()
             break
 
